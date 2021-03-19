@@ -127,24 +127,8 @@ class MainActivity : AppCompatActivity() {
         adapter.setData(listOf())
         progressBar.visibility = View.VISIBLE
         val wifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        if (isWiFiConnected()) {
-            Timber.tag("WifiManagerTesting").e("WIFI Available")
-            val result1 = (wifiManager.setWifiEnabled(false))
-            val result = wifiManager.disconnect()
-            Timber.tag("WifiManagerTesting").e("WIFI Disconnect called : $result, $result1")
-        }
         Timber.tag("WifiManagerTesting").e("scanning started")
         wifiManager.startScan()
-    }
-
-    private fun Activity.isWiFiConnected(): Boolean {
-        val connManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            val capabilities = connManager.getNetworkCapabilities(connManager.activeNetwork)
-            capabilities?.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ?: false
-        } else {
-            connManager.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI
-        }
     }
 
     private fun requestGPSPermission() {
