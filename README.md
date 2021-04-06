@@ -7,4 +7,5 @@
 - SSID
 - BSSID
 - RSSI
+
 **of the discovered APs.**
