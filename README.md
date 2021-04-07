@@ -8,4 +8,6 @@
 - BSSID
 - RSSI
 
-**of the discovered APs.**
+of the discovered APs.
+
+and few more info available in the [WiFiManager](https://developer.android.com/reference/android/net/wifi/WifiManager) Android API
