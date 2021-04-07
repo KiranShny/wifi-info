@@ -40,17 +40,36 @@ class WiFiAdapter : RecyclerView.Adapter<WiFiAdapter.WiFiViewHolder>() {
         private val cardTitle: TextView = itemView.findViewById(R.id.ssidTv)
         private val cardSubTitle: TextView = itemView.findViewById(R.id.bssidTv)
         private val cardCounter: TextView = itemView.findViewById(R.id.rssiTv)
+        private val frequencyTv: TextView = itemView.findViewById(R.id.frequencyTv)
 
         fun bind(scanResult: ScanResult) {
-            cardTitle.text = scanResult.SSID
+            cardTitle.text =
+                if (scanResult.SSID.isNullOrEmpty()) {
+                    "Hidden SSID"
+                } else {
+                    scanResult.SSID
+                }
             cardSubTitle.text = scanResult.BSSID
             cardCounter.text = scanResult.level.toString()
+            frequencyTv.text = String.format("Freq: %d", scanResult.frequency)
             cardSubTitle.setOnClickListener {
                 val clipboard: ClipboardManager? =
                     itemView.context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
                 val clip = ClipData.newPlainText("BSSID", scanResult.BSSID)
                 clipboard?.setPrimaryClip(clip)
-                Toast.makeText(itemView.context, "${scanResult.SSID} BSSID Copied", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    itemView.context,
+                    "${scanResult.SSID} BSSID Copied",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            itemView.setOnClickListener {
+                itemView.context.startActivity(
+                    WiFiDetailsActivity.create(
+                        itemView.context,
+                        scanResult
+                    )
+                )
             }
         }
     }
