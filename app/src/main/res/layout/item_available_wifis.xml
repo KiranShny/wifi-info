@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
-    app:cardCornerRadius="@dimen/spacing_small"
-    app:cardElevation="@dimen/spacing_normal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/spacing_normal"
     android:layout_marginTop="@dimen/spacing_normal"
-    android:layout_marginEnd="@dimen/spacing_normal">
+    android:layout_marginEnd="@dimen/spacing_normal"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/spacing_small"
+    app:cardElevation="@dimen/spacing_normal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
