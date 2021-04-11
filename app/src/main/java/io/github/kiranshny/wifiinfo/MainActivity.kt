@@ -19,7 +19,6 @@ import com.github.florent37.runtimepermission.RuntimePermission.askPermission
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,8 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private val mWifiBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            Timber.tag("WifiManagerTesting")
-                .e("WiFi Scan Results available")
             val wifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
             val results = wifiManager.scanResults
             runOnUiThread {
@@ -111,7 +108,7 @@ class MainActivity : AppCompatActivity() {
             .ask()
     }
 
-    @SuppressLint("SetTextI18n", "HardwareIds")
+    @SuppressLint("SetTextI18n")
     private fun scanWifi() {
         if (!isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)) {
             requestGPSPermission()
@@ -127,7 +124,6 @@ class MainActivity : AppCompatActivity() {
         adapter.setData(listOf())
         progressBar.visibility = View.VISIBLE
         val wifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        Timber.tag("WifiManagerTesting").e("scanning started")
         wifiManager.startScan()
     }
 
